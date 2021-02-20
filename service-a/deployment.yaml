@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: service-a
+  name: service-a
+spec:
+  selector:
+    matchLabels:
+      app: service-a
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: service-a
+    spec:
+      containers:
+      - image: hitskier/catapa-service-a
+        name: service-a
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: service-a
+  name: service-a
+spec:
+  ports:
+  - name: 8080-8080
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: service-a
+  type: ClusterIP
+status:
+  loadBalancer: {}

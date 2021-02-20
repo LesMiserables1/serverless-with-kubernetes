@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: service-b
+  name: service-b
+spec:
+  selector:
+    matchLabels:
+      app: service-b
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: service-b
+    spec:
+      containers:
+      - image: hitskier/catapa-service-b
+        name: service-b
+        resources:
+          requests:
+            cpu: "200m"
+          limits:
+            cpu: "400m"
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: service-b
+  name: service-b
+spec:
+  ports:
+  - name: 8080-8080
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: service-b
+  type: ClusterIP
+status:
+  loadBalancer: {}
